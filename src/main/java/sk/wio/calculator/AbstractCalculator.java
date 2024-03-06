@@ -18,7 +18,7 @@ public abstract class AbstractCalculator {
         if (this.operationMap.containsKey(operator)) {
             final Operation operation = this.operationMap.get(operator);
             final double result = this.calculateResult(operands, operation);
-            printResult(result);
+            this.printResult(result);
             return result;
         } else {
             throw new IllegalArgumentException("Calculator doesn't support operation: " + operator);
