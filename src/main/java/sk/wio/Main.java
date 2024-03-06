@@ -10,26 +10,25 @@ public class Main {
 
     public static void main(String[] args) {
         do {
-            System.out.println("Write number, then type of operation (+, -, *, /) and then wriate number again");
+            System.out.println("Write number, then type of operation (+, -, *, /) and then write number again");
 
             final double left, right;
-            final char operator;
+            final ArithmeticOperator operator;
+
             try {
                 left = scanner.nextDouble();
-                operator = scanner.next().charAt(0);
+                final String line = scanner.next();
+                operator = ArithmeticOperator.getFromSymbol(line);
                 right = scanner.nextDouble();
-            } catch (InputMismatchException e) {
+
+            } catch (InputMismatchException | IllegalArgumentException e) {
                 System.out.println("Invalid input");
                 scanner.nextLine();
                 continue;
             }
 
             final Operands operands = new Operands(left, right);
-            final AbstractCalculator calculator = calculatorHolder.getSuitableCalculator(operator);
-            calculator.calculate(operands, operator);
-
-            System.out.println("Left " + operands.getLeft() + ", operation: " + operator + ", right: " + operands.getRight());
-
+            calculatorHolder.getSuitableCalculator(operator).calculate(operands, operator);
         } while (true);
     }
 }

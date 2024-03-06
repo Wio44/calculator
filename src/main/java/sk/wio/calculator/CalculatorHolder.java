@@ -1,5 +1,6 @@
 package sk.wio.calculator;
 
+import sk.wio.*;
 import sk.wio.operations.*;
 
 import java.util.*;
@@ -13,25 +14,25 @@ public class CalculatorHolder {
     }
 
     private void initializeCalculators() {
-        final Map<Character, Operation> basicCalculatorOperationMap = new HashMap<>();
-        basicCalculatorOperationMap.put('+', new Addition());
-        basicCalculatorOperationMap.put('-', new Subtraction());
+        final Map<ArithmeticOperator, Operation> basicCalculatorOperationMap = new HashMap<>();
+        basicCalculatorOperationMap.put(ArithmeticOperator.ADDITION, new Addition());
+        basicCalculatorOperationMap.put(ArithmeticOperator.SUBTRACTION, new Subtraction());
 
         this.basicCalculator = new BasicCalculator("BasicCalculator", basicCalculatorOperationMap);
 
-        final Map<Character, Operation> advancedCalculatorOperationMap = new HashMap<>();
-        advancedCalculatorOperationMap.put('*', new Multiplication());
-        advancedCalculatorOperationMap.put('/', new Division());
+        final Map<ArithmeticOperator, Operation> advancedCalculatorOperationMap = new HashMap<>();
+        advancedCalculatorOperationMap.put(ArithmeticOperator.MULTIPLICATION, new Multiplication());
+        advancedCalculatorOperationMap.put(ArithmeticOperator.DIVISION, new Division());
 
         this.advancedCalculator = new AdvancedCalculator("AdvancedCalculator", advancedCalculatorOperationMap);
     }
 
-    public AbstractCalculator getSuitableCalculator(char operator) {
+    public AbstractCalculator getSuitableCalculator(ArithmeticOperator operator) {
         switch (operator) {
-            case '+', '-' -> {
+            case ADDITION, SUBTRACTION -> {
                 return this.basicCalculator;
             }
-            case '*', '/' -> {
+            case MULTIPLICATION, DIVISION -> {
                 return this.advancedCalculator;
             }
             default -> throw new IllegalArgumentException("Unsupported operation");
